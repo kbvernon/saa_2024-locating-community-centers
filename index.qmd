@@ -1,0 +1,149 @@
+---
+format: 
+  revealjs: 
+    theme: [default, custom.scss]
+    height: 1080
+    width: 1920
+    auto-stretch: false
+    slide-number: true
+execute:
+  echo: false
+engine: knitr
+---
+
+## The socio-ecology of community centers {.title-left background-image="figures/8bit-desert.png" background-size="contain"}
+
+::: title-top
+K. Blake Vernon and Scott Ortman
+:::
+
+::: title-bottom
+`r Sys.Date()`
+
+[{{< fa brands github >}} kbvernon/saa_2024-locating-community-centers](https://github.com/kbvernon/saa_2024-locating-community-centers){style="padding-left: 0.3rem;"}
+:::
+
+## What's a community center?
+
+-   A site that functions as either a large residential center or as a place for
+    social interaction, often both.
+-   Identified archaeologically by the presence of civic architecture or more
+    households than can be reasonably related by reckoned kinship (e.g., great
+    houses and great kivas).
+
+## Why do they get established where they do?
+
+Is it because it's more productive at those locations (like C1) or more central
+(like C2)?
+
+::: {style="width: 1080px; margin: 3em auto 0 auto; text-align: center;"}
+![](figures/question.png){.img0 width="90%" fig-align="center"}
+:::
+
+## Regions {background-image="figures/overview-map.png" background-size="contain"}
+
+## Spatial Network
+Locations of community centers <span style='font-size:1.1em; color:#A20000;'>&#9650;</span> and farms <span style='font-size:1.1em;'>&#9679;</span>
+
+![](figures/settlement-pattern.png){width="70%" fig-align="center" style='margin-top:1em;'}
+
+<!--
+## Demography {.center}
+
+![](figures/population-profiles.png){width="45%" fig-align="center"}
+-->
+
+## Model
+
+Outcome of interest is a Poisson-distributed random variable $N$ of centers per unit area.
+
+$$
+N_{i} \sim Poisson(\lambda_{i})\\
+E(N_{i}) = \lambda_{i}\\
+log(\lambda_{i}) = \beta X_{i} + \epsilon_{i}
+$$
+
+-   covariates $X$ include gravity-weigted BC, precipitation, and maize GDD
+-   $\epsilon_{i}$ is the random error
+-   model also includes fixed effects for study area and time period
+
+Fitting an approximation of this model with **down-sampled random forest**.
+
+## Network Centrality
+
+::: {.r-stack width="100%"}
+::: {.fragment .fade-out fragment-index="0" style="margin-top:0;"}
+For graph $G(V,E)$ with vertices $V$ and edges $E$, the **gravity-weighted
+betweenness centrality** of vertex $v \in V$ is given by:
+
+$$gBC(v) = \sum_{s,t \in V; s\neq v\neq t}^{N} I_{s,t}(v)\cdot G_{s,t}$$
+
+where
+
+-   $I_{s,t}(v)$ is the indicator function that is 1 if on shortest path between $s$
+and $t$, 0 otherwise and
+-   $G_{s,t}$ is the gravitational attraction between $s$ and $t$
+
+**But...**
+:::
+
+::: {.fragment .fade-in-then-out fragment-index="0" style="margin-top:0;"}
+... in a highly structured spatial grid graph, gBC is just a wordy synonym for **population density**.  
+
+![](figures/centrality-profiles.png){width="38%" fig-align="center"}
+:::
+
+::: {.fragment .fade-in fragment-index="1" style="margin-top:0;"}
+Gravity breakdown  
+
+![](figures/gravity-breakdown.png){width="38%" fig-align="center"}
+:::
+:::
+
+## Agricultural Productivity
+
+Using precipitation and temperature as proxies.
+
+![](figures/climate-profiles.png){width="38%" fig-align="center"}
+
+## Results
+
+::: {.r-stack width="100%"}
+::: {.fragment .fade-out fragment-index="0" style="margin-top:0;"}
+Probability of centers as a function of the density of farms over time.
+
+![](figures/farms-by-time.png){width="57%" fig-align="center"}
+:::
+
+::: {.fragment .fade-in-then-out fragment-index="0" style="margin-top:0;"}
+Center niche in **ecological space** averaged over **1200-1300 CE**
+
+![](figures/climate-by-farms.png){width="63%" fig-align="center"}
+:::
+
+::: {.fragment .fade-in fragment-index="1" style="margin-top:0;"}
+Center niche in **geographic space** averaged over **1200-1300 CE**
+
+![](figures/geographic-space.png){width="57%" fig-align="center"}
+:::
+:::
+
+## Conclusions
+
+This analysis is more exploratory than final, but tentatively...
+
+1. You should always prefer the simpler model.
+2. Community centers positively co-vary with the density and distribution of farms.
+3. The relationship between farms and centers varies by region.
+
+Next step is to model the co-occurrence of farms and centers directly.  
+
+## Acknowledgments {background-image="figures/acknowledgments.png" background-size="contain"}
+
+<br><br>
+
+- Matt Peeples
+- Simon Brewer
+- Brian Codding
+- Weston McCool
+- Josh Watts
