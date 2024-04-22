@@ -7,7 +7,7 @@
 
 Repository for my presentation at the Society for American Archaeology 89th Annual Meeting in New Orleans. Slides made using [quarto](https://quarto.org/) and R. 
 
-__Slides:__ <https://kbvernon.github.io/saa_2024-community_networks>
+__Slides:__ <https://kbvernon.github.io/saa_2024-locating-community-centers/>
 
 You can press "F" to enter Full Screen mode and "S" to enter Speaker view. The hamburger button ☰ at the bottom left of the screen opens a menu that allows you to easily navigate the presentation.  
 
